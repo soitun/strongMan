@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import os
-import django
-os.chdir(os.path.dirname(__file__))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "strongMan.settings.production")
+import django
 django.setup()
 from collections import OrderedDict
 from strongMan.apps.server_connections.models import Connection
