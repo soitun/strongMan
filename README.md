@@ -32,23 +32,19 @@ To guarantee data consistency between strongMan and strongSwan, configure a scri
 If you aren’t planning on setting up a systemd service, do the following: Put these lines into
 in "/etc/strongswan.d/strongMan.conf". Replace ’pathTostrongMan’ with the path, where you
 installed strongMan.
-```bash
+```
 charon {
   start -scripts {
-    strongman = python3 /pathTostrongMan/configloader.py
+    strongman = /pathTostrongMan/configloader.sh
   }
 }
 ```
 ##### Option 2
 If you will configure strongMan with a systemd service, follow these instructions to get the
 Configuration Loader running.
-Put these lines into "/pathTostrongSwan/init/systemd-swanctl/strongswan-swanctl.service.in". Replace "pathTostrongMan" with the path, where you installed strongMan.
-```bash
-charon {
-  start-scripts {
-    strongman = python3 /pathTostrongMan/configloader.py
-  }
-}
+Put these lines into "strongswan-swanctl.service". Replace "pathTostrongMan" with the path, where you installed strongMan.
+```
+ExecStartPost=/pathTostrongMan/configloader.sh
 ```
 
 ### Run 
