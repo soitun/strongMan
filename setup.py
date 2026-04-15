@@ -65,15 +65,6 @@ class BaseInstaller(object):
 
 
 class Migrator(BaseInstaller):
-    def delete_migrations(self):
-        for entries in os.walk(self.django_dir + "/strongMan"):
-            dir = list(entries)[0]
-            if str(dir).__contains__('migrations'):
-                if os.path.exists(dir):
-                    if not self.mute:
-                        print(self._tab("Delete " + dir))
-                    shutil.rmtree(dir)
-
     def delete_db(self):
         print(self._tab("Delete " + "strongMan/db.sqlite3"))
         os.remove(self.django_dir + "/strongMan/db.sqlite3")
@@ -97,10 +88,6 @@ class Installer(BaseInstaller):
     def migrate_db(self):
         migrator = Migrator()
         migrator.mute = self.mute
-        try:
-            migrator.delete_migrations()
-        except Exception as e:
-            print(e)
         try:
             migrator.delete_db()
         except Exception as e:
